@@ -81,6 +81,18 @@ background-image: url("../Asset/[ assets ]/ribbon.png");
 
 Jika CSS digunakan melalui layanan berbasis web seperti StreamElements, asset lokal tidak dapat diakses oleh browser layanan tersebut. Dalam kondisi itu, unggah asset ke GitHub Pages atau hosting/CDN publik dan gunakan URL HTTPS. Google Drive tidak disarankan sebagai sumber langsung asset karena tautannya tidak selalu berupa direct file URL dan dapat bermasalah saat dimuat oleh browser.
 
+## Pengujian langsung di OBS
+
+Repo ini dapat dimuat melalui jsDelivr, sehingga seluruh isi CSS tidak perlu disalin ke OBS. Tambahkan YouTube Live Chat Popout sebagai Browser Source, kemudian masukkan baris berikut pada kolom **Custom CSS**:
+
+```css
+@import url("https://cdn.jsdelivr.net/gh/demnih/RupiNephore@main/CSS/main.css");
+```
+
+Path asset di dalam `main.css` bersifat relatif terhadap file CSS. Ketika stylesheet dimuat dari CDN, browser juga akan mengambil gambar dari repo yang sama secara otomatis.
+
+Jika perubahan terbaru belum langsung tampil, lakukan **Refresh cache of current page** pada Browser Source. CDN dapat menyimpan versi sebelumnya untuk sementara; untuk pengujian versi yang benar-benar tetap, `main` dapat diganti dengan hash commit tertentu.
+
 ## Tingkat kompleksitas
 
 Bubble viewer, member, moderator, dan Rupi memiliki kompleksitas rendah sampai menengah. Bentuk utamanya dapat dibuat dengan CSS menggunakan `border-radius`, gradient, shadow, serta pseudo-element, kemudian dilengkapi PNG transparan sebagai ornamen.
