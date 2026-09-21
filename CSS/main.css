@@ -138,9 +138,13 @@ yt-live-chat-text-message-renderer {
 
 yt-live-chat-text-message-renderer #content {
   position: relative;
-  display: block !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, max-content) max-content max-content minmax(0, 1fr);
+  grid-template-rows: 25px auto;
+  column-gap: 4px;
+  align-items: start;
   min-height: 58px;
-  padding: 24px 54px 14px 18px !important;
+  padding: 0 54px 14px 18px !important;
   overflow: visible !important;
   border: var(--rupi-border-width) solid var(--bubble-border);
   border-radius: 9px var(--rupi-radius) var(--rupi-radius) var(--rupi-radius);
@@ -218,6 +222,22 @@ yt-live-chat-text-message-renderer #author-name {
 .rupi-chat__identity,
 yt-live-chat-text-message-renderer yt-live-chat-author-chip {
   gap: 5px;
+}
+
+/*
+ * Author chip tetap berada dalam aliran layout seperti pada mimin.css.
+ * Offset hanya mengangkat label ke atas border tanpa memutus hubungan
+ * posisi dengan icon dan ranking badge yang berada setelahnya.
+ */
+yt-live-chat-text-message-renderer yt-live-chat-author-chip {
+  position: relative !important;
+  grid-column: 1;
+  grid-row: 1;
+  top: -12px;
+  left: -7px;
+  align-self: start;
+  width: fit-content;
+  vertical-align: top;
 }
 
 .rupi-chat__identity .rupi-chat__name,
@@ -351,10 +371,12 @@ yt-live-chat-text-message-renderer yt-live-chat-author-chip #chat-badges {
  * Keduanya dipindahkan ke baris header agar pesan tidak terdorong ke bawah.
  */
 yt-live-chat-text-message-renderer #message-prefix-icon-container:not(:empty) {
-  position: absolute !important;
+  position: relative !important;
   z-index: 7;
+  grid-column: 2;
+  grid-row: 1;
   top: -9px;
-  right: 108px;
+  right: auto;
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
@@ -368,6 +390,11 @@ yt-live-chat-text-message-renderer #message-prefix-icon-container:not(:empty) {
   line-height: 1 !important;
 }
 
+yt-live-chat-text-message-renderer #message-prefix-icon-container:empty,
+yt-live-chat-text-message-renderer #before-content-buttons:empty {
+  display: none !important;
+}
+
 yt-live-chat-text-message-renderer #message-prefix-icon-container #message-prefix-icon,
 yt-live-chat-text-message-renderer #message-prefix-icon-container yt-icon {
   width: 14px !important;
@@ -377,10 +404,12 @@ yt-live-chat-text-message-renderer #message-prefix-icon-container yt-icon {
 }
 
 yt-live-chat-text-message-renderer #before-content-buttons:not(:empty) {
-  position: absolute !important;
+  position: relative !important;
   z-index: 7;
+  grid-column: 3;
+  grid-row: 1;
   top: -9px;
-  right: 56px;
+  right: auto;
   display: inline-flex !important;
   align-items: center;
   min-height: 21px;
@@ -405,7 +434,7 @@ yt-live-chat-text-message-renderer:has(#before-content-buttons:not(:empty))::bef
 }
 
 yt-live-chat-text-message-renderer #message-container {
-  display: block !important;
+  display: contents !important;
   min-width: 0;
 }
 
@@ -413,6 +442,8 @@ yt-live-chat-text-message-renderer #message-container {
 yt-live-chat-text-message-renderer #message {
   position: relative;
   z-index: 4;
+  grid-column: 1 / -1;
+  grid-row: 2;
   display: block !important;
   overflow-wrap: anywhere;
   color: var(--bubble-text) !important;
