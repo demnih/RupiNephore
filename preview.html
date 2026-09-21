@@ -20,34 +20,17 @@
 
       body {
         min-height: 100vh;
+        padding-bottom: 104px;
         color: #f8f7ff;
       }
 
-      button,
-      input,
-      select,
-      textarea {
+      input {
         font: inherit;
       }
 
       .preview-app {
-        display: grid;
-        grid-template-columns: minmax(270px, 340px) minmax(0, 1fr);
+        display: block;
         min-height: 100vh;
-      }
-
-      .control-panel {
-        position: sticky;
-        top: 0;
-        z-index: 20;
-        align-self: start;
-        min-height: 100vh;
-        padding: 26px;
-        border-right: 1px solid rgb(169 173 226 / 22%);
-        background:
-          radial-gradient(circle at 20% 0%, rgb(233 101 164 / 16%), transparent 34%),
-          linear-gradient(180deg, #242243, #19172e);
-        box-shadow: 12px 0 34px rgb(0 0 0 / 20%);
       }
 
       .eyebrow {
@@ -65,103 +48,15 @@
         line-height: 1.05;
       }
 
-      .intro {
-        margin: 12px 0 24px;
-        color: var(--rupi-periwinkle);
-        font-size: 13px;
-        line-height: 1.55;
-      }
-
-      .field {
-        display: grid;
-        gap: 7px;
-        margin-bottom: 16px;
-      }
-
-      .field[hidden] {
-        display: none;
-      }
-
-      .field label {
-        color: var(--rupi-lavender);
-        font-size: 12px;
-        font-weight: 900;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-      }
-
-      .field input,
-      .field select,
-      .field textarea {
-        width: 100%;
-        border: 2px solid rgb(169 173 226 / 26%);
-        border-radius: 12px;
-        outline: none;
-        background: rgb(248 247 255 / 8%);
-        color: var(--rupi-white);
-        transition: border-color 160ms ease, background 160ms ease;
-      }
-
-      .field input,
-      .field select {
-        min-height: 43px;
-        padding: 0 12px;
-      }
-
-      .field textarea {
-        min-height: 94px;
-        padding: 11px 12px;
-        resize: vertical;
-      }
-
-      .field input:focus,
-      .field select:focus,
-      .field textarea:focus {
-        border-color: var(--rupi-pink);
-        background: rgb(248 247 255 / 12%);
-      }
-
-      .field select option {
-        background: var(--rupi-navy);
-      }
-
       .range-output {
         color: var(--rupi-soft-pink);
         font-size: 12px;
         font-weight: 900;
       }
 
-      .button-group {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 9px;
-        margin-top: 21px;
-      }
-
-      .button-group button {
-        min-height: 42px;
-        padding: 8px 11px;
-        border: 2px solid var(--rupi-pink);
-        border-radius: 12px;
-        background: var(--rupi-pink);
-        color: var(--rupi-white);
-        cursor: pointer;
-        font-size: 12px;
-        font-weight: 900;
-      }
-
-      .button-group button.secondary {
-        border-color: rgb(169 173 226 / 40%);
-        background: transparent;
-      }
-
-      .button-group button:hover {
-        filter: brightness(1.08);
-      }
-
       .preview-workspace {
         min-width: 0;
-        padding: 28px clamp(18px, 4vw, 56px) 56px;
+        padding: 28px clamp(12px, 4vw, 56px) 56px;
       }
 
       .workspace-header {
@@ -173,9 +68,9 @@
         margin: 0 auto 14px;
       }
 
-      .workspace-header h2 {
+      .workspace-header h1 {
         margin: 0;
-        font-size: 17px;
+        font-size: clamp(21px, 4vw, 30px);
       }
 
       .workspace-header p {
@@ -197,32 +92,6 @@
         background-color: #09090f;
         box-shadow: 0 22px 60px rgb(0 0 0 / 28%);
         transition: width 180ms ease, background 180ms ease;
-      }
-
-      .preview-frame[data-background="checker"] {
-        background-color: #cecbd8;
-        background-image:
-          linear-gradient(45deg, #aaa6b8 25%, transparent 25%),
-          linear-gradient(-45deg, #aaa6b8 25%, transparent 25%),
-          linear-gradient(45deg, transparent 75%, #aaa6b8 75%),
-          linear-gradient(-45deg, transparent 75%, #aaa6b8 75%);
-        background-position: 0 0, 0 12px, 12px -12px, -12px 0;
-        background-size: 24px 24px;
-      }
-
-      .preview-frame[data-background="light"] {
-        background: #f4edf3;
-      }
-
-      .preview-frame[data-background="transparent"] {
-        background-color: transparent;
-        background-image:
-          linear-gradient(45deg, #312e4b 25%, transparent 25%),
-          linear-gradient(-45deg, #312e4b 25%, transparent 25%),
-          linear-gradient(45deg, transparent 75%, #312e4b 75%),
-          linear-gradient(-45deg, transparent 75%, #312e4b 75%);
-        background-position: 0 0, 0 12px, 12px -12px, -12px 0;
-        background-size: 24px 24px;
       }
 
       .safe-area {
@@ -301,26 +170,67 @@
         font-weight: 900;
       }
 
-      .empty-note {
-        margin: 100px auto;
-        color: var(--rupi-periwinkle);
-        text-align: center;
+      .viewport-toolbar {
+        position: fixed;
+        z-index: 50;
+        right: 50%;
+        bottom: 18px;
+        display: grid;
+        grid-template-columns: auto minmax(180px, 430px) auto;
+        align-items: center;
+        gap: 14px;
+        width: min(calc(100% - 24px), 720px);
+        padding: 14px 18px;
+        border: 1px solid rgb(169 173 226 / 34%);
+        border-radius: 16px;
+        background: rgb(36 34 67 / 94%);
+        box-shadow: 0 16px 46px rgb(0 0 0 / 42%);
+        backdrop-filter: blur(14px);
+        transform: translateX(50%);
+      }
+
+      .viewport-toolbar label {
+        color: var(--rupi-lavender);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .viewport-toolbar input {
+        width: 100%;
+        accent-color: var(--rupi-pink);
+        cursor: pointer;
       }
 
       @media (max-width: 850px) {
-        .preview-app {
-          grid-template-columns: 1fr;
-        }
-
-        .control-panel {
-          position: static;
-          min-height: 0;
-          border-right: 0;
-          border-bottom: 1px solid rgb(169 173 226 / 22%);
-        }
-
         .preview-workspace {
           padding-inline: 12px;
+        }
+      }
+
+      @media (max-width: 560px) {
+        body {
+          padding-bottom: 126px;
+        }
+
+        .workspace-header {
+          display: block;
+        }
+
+        .workspace-header > p {
+          margin-top: 8px;
+        }
+
+        .viewport-toolbar {
+          bottom: 8px;
+          grid-template-columns: minmax(0, 1fr) auto;
+          gap: 8px 12px;
+          padding: 11px 14px;
+        }
+
+        .viewport-toolbar label {
+          grid-column: 1 / -1;
         }
       }
     </style>
@@ -328,72 +238,13 @@
 
   <body>
     <main class="preview-app">
-      <aside class="control-panel">
-        <p class="eyebrow">Local design tester</p>
-        <h1>Rupi Live Chat</h1>
-        <p class="intro">
-          Ubah data di bawah untuk melihat hasil CSS secara langsung. Halaman ini tidak
-          mengambil data dari YouTube, sehingga badge dan icon status tidak disimulasikan.
-        </p>
-
-        <form id="preview-form">
-          <div class="field">
-            <label for="type">Jenis pesan</label>
-            <select id="type" name="type">
-              <option value="viewer">Viewer / subscriber biasa</option>
-              <option value="member">YouTube Member</option>
-              <option value="moderator">Moderator</option>
-              <option value="rupi">Rupi / channel owner</option>
-              <option value="superchat">Superchat</option>
-              <option value="membership">Notifikasi member baru</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="name">Nama pengguna</label>
-            <input id="name" name="name" type="text" value="RupiViewer" maxlength="60">
-          </div>
-
-          <div class="field">
-            <label for="message">Isi pesan</label>
-            <textarea id="message" name="message" maxlength="400">Halo Rupi! Desain live chat-nya lucu sekali 💜</textarea>
-          </div>
-
-          <div class="field" id="amount-field" hidden>
-            <label for="amount">Nominal superchat</label>
-            <input id="amount" name="amount" type="text" value="Rp50.000" maxlength="30">
-          </div>
-
-          <div class="field">
-            <label for="background">Background pengujian</label>
-            <select id="background" name="background">
-              <option value="dark">Gelap</option>
-              <option value="light">Terang</option>
-              <option value="checker">Checker</option>
-              <option value="transparent">Simulasi transparan</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="frame-width">Lebar viewport</label>
-            <input id="frame-width" name="frame-width" type="range" min="320" max="760" value="680" step="10">
-            <output class="range-output" id="frame-width-output" for="frame-width">680 px</output>
-          </div>
-
-          <div class="button-group">
-            <button type="button" id="show-all">Tampilkan semua</button>
-            <button class="secondary" type="button" id="show-current">Preview aktif</button>
-          </div>
-        </form>
-      </aside>
-
       <section class="preview-workspace">
         <header class="workspace-header">
           <div>
-            <p class="eyebrow">Output</p>
-            <h2 id="preview-title">Viewer / subscriber biasa</h2>
+            <p class="eyebrow">Local design preview</p>
+            <h1>Semua variasi Rupi Live Chat</h1>
           </div>
-          <p>Garis putus-putus menunjukkan batas aman.</p>
+          <p>Badge dan icon status YouTube tidak disimulasikan.</p>
         </header>
 
         <div class="preview-frame" id="preview-frame" data-background="dark">
@@ -403,57 +254,45 @@
       </section>
     </main>
 
+    <footer class="viewport-toolbar">
+      <label for="frame-width">Lebar viewport</label>
+      <input id="frame-width" name="frame-width" type="range" min="320" max="760" value="680" step="10">
+      <output class="range-output" id="frame-width-output" for="frame-width">680 px</output>
+    </footer>
+
     <script>
       const examples = {
         viewer: {
-          label: "Viewer / subscriber biasa",
           name: "RupiViewer",
           message: "Halo Rupi! Desain live chat-nya lucu sekali 💜"
         },
         member: {
-          label: "YouTube Member",
           name: "MemberRupi",
           message: "Senang bisa menjadi member dan mendukung stream ini!"
         },
         moderator: {
-          label: "Moderator",
           name: "RupiModerator",
           message: "Selamat datang! Jangan lupa membaca peraturan live chat."
         },
         rupi: {
-          label: "Rupi / channel owner",
           name: "Rupi Nephore",
           message: "Terima kasih sudah datang ke stream hari ini ♡"
         },
         superchat: {
-          label: "Superchat",
           name: "SuperSupporter",
           message: "Semangat streaming-nya, Rupi!",
           amount: "Rp50.000"
         },
         membership: {
-          label: "Notifikasi member baru",
           name: "NewRupiMember",
           message: "Baru saja bergabung menjadi member!"
         }
       };
 
-      const form = document.querySelector("#preview-form");
-      const typeInput = document.querySelector("#type");
-      const nameInput = document.querySelector("#name");
-      const messageInput = document.querySelector("#message");
-      const amountInput = document.querySelector("#amount");
-      const amountField = document.querySelector("#amount-field");
-      const backgroundInput = document.querySelector("#background");
       const frameWidthInput = document.querySelector("#frame-width");
       const frameWidthOutput = document.querySelector("#frame-width-output");
       const previewFrame = document.querySelector("#preview-frame");
       const previewFeed = document.querySelector("#preview-feed");
-      const previewTitle = document.querySelector("#preview-title");
-      const showAllButton = document.querySelector("#show-all");
-      const showCurrentButton = document.querySelector("#show-current");
-
-      let galleryMode = false;
 
       function createChat(type, data) {
         const card = document.createElement("article");
@@ -513,22 +352,6 @@
         return createChat(type, data);
       }
 
-      function currentData() {
-        return {
-          name: nameInput.value.trim() || "Anonymous",
-          message: messageInput.value.trim() || "Pesan kosong",
-          amount: amountInput.value.trim() || "Rp50.000"
-        };
-      }
-
-      function renderCurrent() {
-        const type = typeInput.value;
-        galleryMode = false;
-        previewFeed.replaceChildren(createCard(type, currentData()));
-        previewTitle.textContent = examples[type].label;
-        amountField.hidden = type !== "superchat";
-      }
-
       function renderGallery() {
         const fragment = document.createDocumentFragment();
 
@@ -536,40 +359,16 @@
           fragment.append(createCard(type, data));
         });
 
-        galleryMode = true;
         previewFeed.replaceChildren(fragment);
-        previewTitle.textContent = "Semua variasi";
       }
 
       function updateFrame() {
         const width = `${frameWidthInput.value}px`;
         previewFrame.style.setProperty("--frame-width", width);
         frameWidthOutput.value = width;
-        previewFrame.dataset.background = backgroundInput.value;
       }
 
-      typeInput.addEventListener("change", () => {
-        const selected = examples[typeInput.value];
-        nameInput.value = selected.name;
-        messageInput.value = selected.message;
-        amountInput.value = selected.amount || amountInput.value;
-        renderCurrent();
-      });
-
-      form.addEventListener("input", (event) => {
-        if (event.target === frameWidthInput || event.target === backgroundInput) {
-          updateFrame();
-          return;
-        }
-
-        if (!galleryMode) {
-          renderCurrent();
-        }
-      });
-
-      backgroundInput.addEventListener("change", updateFrame);
-      showAllButton.addEventListener("click", renderGallery);
-      showCurrentButton.addEventListener("click", renderCurrent);
+      frameWidthInput.addEventListener("input", updateFrame);
 
       const query = new URLSearchParams(window.location.search);
       const requestedWidth = Number(query.get("width"));
@@ -579,11 +378,7 @@
       }
 
       updateFrame();
-      if (query.has("all")) {
-        renderGallery();
-      } else {
-        renderCurrent();
-      }
+      renderGallery();
     </script>
   </body>
 </html>
