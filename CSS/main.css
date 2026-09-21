@@ -139,7 +139,7 @@ yt-live-chat-text-message-renderer {
 yt-live-chat-text-message-renderer #content {
   position: relative;
   display: grid !important;
-  grid-template-columns: minmax(0, max-content) max-content max-content minmax(0, 1fr);
+  grid-template-columns: max-content max-content max-content minmax(0, 1fr);
   grid-template-rows: 25px auto;
   column-gap: 4px;
   align-items: start;
@@ -237,6 +237,9 @@ yt-live-chat-text-message-renderer yt-live-chat-author-chip {
   left: -7px;
   align-self: start;
   width: fit-content;
+  max-width: none;
+  overflow: visible;
+  flex-wrap: nowrap;
   vertical-align: top;
 }
 
@@ -244,16 +247,18 @@ yt-live-chat-text-message-renderer yt-live-chat-author-chip {
 yt-live-chat-text-message-renderer yt-live-chat-author-chip #author-name {
   position: static !important;
   display: block !important;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   order: 1;
-  min-width: 0;
+  min-width: max-content;
   max-width: none;
   min-height: 0;
   padding: 0 !important;
+  overflow: visible;
   border: 0 !important;
   border-radius: 0;
   background: transparent !important;
   box-shadow: none !important;
+  text-overflow: clip;
 }
 
 .rupi-chat__badges,
