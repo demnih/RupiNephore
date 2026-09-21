@@ -93,6 +93,18 @@ Path asset di dalam `main.css` bersifat relatif terhadap file CSS. Ketika styles
 
 Jika perubahan terbaru belum langsung tampil, lakukan **Refresh cache of current page** pada Browser Source. CDN dapat menyimpan versi sebelumnya untuk sementara; untuk pengujian versi yang benar-benar tetap, `main` dapat diganti dengan hash commit tertentu.
 
+### Preview lokal interaktif
+
+Gunakan [preview.html](./preview.html) untuk menguji desain tanpa koneksi ke live chat YouTube. Halaman ini menyediakan:
+
+- pilihan keenam jenis pesan;
+- input nama, isi pesan, dan nominal superchat;
+- pilihan background terang, gelap, checker, atau simulasi transparan;
+- pengaturan lebar viewport;
+- tampilan satu variasi atau seluruh variasi sekaligus.
+
+File dapat dibuka langsung di browser. Untuk membukanya di OBS, buat Browser Source, aktifkan **Local file**, lalu pilih `preview.html`. Klik kanan Browser Source dan pilih **Interact** untuk menggunakan form pengujian.
+
 ## Tingkat kompleksitas
 
 Bubble viewer, member, moderator, dan Rupi memiliki kompleksitas rendah sampai menengah. Bentuk utamanya dapat dibuat dengan CSS menggunakan `border-radius`, gradient, shadow, serta pseudo-element, kemudian dilengkapi PNG transparan sebagai ornamen.
