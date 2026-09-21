@@ -162,6 +162,11 @@ yt-live-chat-text-message-renderer::before {
   pointer-events: none;
 }
 
+/* YouTube memberi renderer padding atas 10px sebelum #content. */
+yt-live-chat-text-message-renderer::before {
+  top: 11px;
+}
+
 .rupi-chat::after,
 yt-live-chat-text-message-renderer::after {
   content: "";
