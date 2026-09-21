@@ -66,7 +66,7 @@ Beberapa kandidat penggunaan asset:
 - pil dan tablet untuk viewer, member, atau moderator;
 - ribbon, tag, dan safety pin untuk bubble chat Rupi;
 - ilustrasi angel/devil atau ornamen besar untuk superchat;
-- barcode, pola pakaian, atau elemen medis untuk detail background;
+- pola background dibuat langsung dengan gradient CSS agar skalanya konsisten; asset clothes pattern tidak digunakan pada desain aktif;
 - ilustrasi chibi untuk notifikasi member baru jika ukurannya tidak menutupi teks.
 
 Asset dekoratif sebaiknya menggunakan PNG transparan dan dikompresi agar overlay tidak berat. Ornamen tidak harus dipakai semuanya; keterbacaan chat tetap menjadi prioritas.

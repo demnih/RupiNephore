@@ -110,13 +110,14 @@ yt-live-chat-text-message-renderer {
   --ornament-width: 48px;
   --ornament-height: 38px;
   --ornament-rotation: -14deg;
+  --ornament-opacity: 0.16;
 
   position: relative;
   display: block;
-  width: calc(100% - 58px) !important;
-  max-width: calc(100% - 58px) !important;
+  width: calc(100% - 16px) !important;
+  max-width: calc(100% - 16px) !important;
   min-width: 0;
-  margin: 0 42px var(--rupi-chat-gap) 4px !important;
+  margin: 0 8px var(--rupi-chat-gap) 4px !important;
   overflow: visible;
   color: var(--bubble-text);
   font-family: var(--rupi-font) !important;
@@ -166,16 +167,17 @@ yt-live-chat-text-message-renderer::before {
 yt-live-chat-text-message-renderer::after {
   content: "";
   position: absolute;
-  z-index: 4;
-  right: calc(var(--ornament-width) * -0.58);
-  bottom: -5px;
+  z-index: 3;
+  right: 11px;
+  bottom: 7px;
   width: var(--ornament-width);
   height: var(--ornament-height);
   background-image: var(--ornament-image);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  filter: drop-shadow(0 4px 5px rgb(41 39 80 / 16%));
+  opacity: var(--ornament-opacity);
+  filter: saturate(0.78) contrast(0.9);
   transform: rotate(var(--ornament-rotation));
   transform-origin: center;
   pointer-events: none;
@@ -209,6 +211,8 @@ yt-live-chat-text-message-renderer #author-name {
 
 .rupi-chat__message,
 yt-live-chat-text-message-renderer #message {
+  position: relative;
+  z-index: 4;
   display: block !important;
   overflow-wrap: anywhere;
   color: var(--bubble-text) !important;
@@ -232,8 +236,8 @@ yt-live-chat-text-message-renderer #message yt-img-shadow {
 yt-live-chat-text-message-renderer:not([author-type]),
 yt-live-chat-text-message-renderer[author-type=""] {
   --bubble-background:
-    linear-gradient(135deg, rgb(248 247 255 / 91%), rgb(255 255 255 / 88%)),
-    url("../Asset/[ clothes patterns ]/inner - back pattern.png") center bottom / 320px auto repeat-x,
+    radial-gradient(circle at 8% 22%, rgb(245 181 210 / 20%) 0 3px, transparent 4px),
+    radial-gradient(circle at 92% 76%, rgb(169 173 226 / 18%) 0 4px, transparent 5px),
     linear-gradient(135deg, var(--rupi-white) 0%, #ffffff 75%);
   --bubble-border: var(--rupi-soft-pink);
   --bubble-text: var(--rupi-navy);
@@ -248,8 +252,7 @@ yt-live-chat-text-message-renderer[author-type=""] {
 .rupi-chat--member,
 yt-live-chat-text-message-renderer[author-type="member"] {
   --bubble-background:
-    linear-gradient(135deg, rgb(248 201 223 / 87%), rgb(236 147 188 / 84%)),
-    url("../Asset/[ clothes patterns ]/shoe - pattern.png") center bottom / 320px auto repeat-x,
+    repeating-linear-gradient(135deg, transparent 0 13px, rgb(255 255 255 / 12%) 13px 16px),
     linear-gradient(135deg, #f8c9df 0%, var(--rupi-soft-pink) 55%, #ec93bc 100%);
   --bubble-border: var(--rupi-pink);
   --bubble-text: var(--rupi-navy);
@@ -260,6 +263,7 @@ yt-live-chat-text-message-renderer[author-type="member"] {
   --ornament-width: 43px;
   --ornament-height: 43px;
   --ornament-rotation: 12deg;
+  --ornament-opacity: 0.14;
 }
 
 /* 3. Moderator - adaptasi box VIP User */
@@ -278,6 +282,7 @@ yt-live-chat-text-message-renderer[author-type="moderator"] {
   --ornament-width: 52px;
   --ornament-height: 38px;
   --ornament-rotation: -11deg;
+  --ornament-opacity: 0.14;
 }
 
 .rupi-chat--moderator,
@@ -290,8 +295,8 @@ yt-live-chat-text-message-renderer[author-type="moderator"] #content {
 .rupi-chat--rupi,
 yt-live-chat-text-message-renderer[author-type="owner"] {
   --bubble-background:
-    linear-gradient(135deg, rgb(240 240 255 / 88%), rgb(224 224 255 / 84%) 52%, rgb(255 160 208 / 82%)),
-    url("../Asset/[ clothes patterns ]/jacket - right side pattern.png") center bottom / 320px auto repeat-x,
+    linear-gradient(45deg, transparent 46%, rgb(80 64 112 / 8%) 47% 53%, transparent 54%) 0 0 / 28px 28px,
+    linear-gradient(-45deg, transparent 46%, rgb(224 112 176 / 7%) 47% 53%, transparent 54%) 0 0 / 28px 28px,
     linear-gradient(135deg, var(--rupi-pose-white), var(--rupi-pose-lavender) 55%, var(--rupi-pose-pink));
   --bubble-border: var(--rupi-pose-rose);
   --bubble-text: var(--rupi-pose-ink);
@@ -302,6 +307,7 @@ yt-live-chat-text-message-renderer[author-type="owner"] {
   --ornament-width: 58px;
   --ornament-height: 58px;
   --ornament-rotation: 8deg;
+  --ornament-opacity: 0.13;
   --rupi-shadow:
     0 10px 24px rgb(48 32 80 / 22%),
     inset 0 1px 0 rgb(255 255 255 / 76%);
@@ -391,8 +397,7 @@ yt-live-chat-paid-message-renderer {
 .rupi-event--superchat,
 yt-live-chat-paid-message-renderer #card {
   background:
-    linear-gradient(145deg, rgb(95 86 141 / 87%), rgb(119 112 171 / 84%)),
-    url("../Asset/[ clothes patterns ]/inner - front pattern.png") center bottom / 320px auto repeat-x,
+    radial-gradient(circle at 3px 3px, rgb(240 240 255 / 10%) 0 2px, transparent 2.5px) 0 0 / 21px 21px,
     linear-gradient(145deg, var(--rupi-purple), #7770ab) !important;
 }
 
@@ -441,8 +446,7 @@ yt-live-chat-membership-item-renderer {
 yt-live-chat-membership-item-renderer #card {
   border-color: var(--rupi-pink) !important;
   background:
-    linear-gradient(145deg, rgb(248 247 255 / 90%), rgb(231 233 255 / 88%)),
-    url("../Asset/[ clothes patterns ]/belt - purple pattern.png") center bottom / 320px auto repeat-x,
+    repeating-linear-gradient(135deg, transparent 0 14px, rgb(169 173 226 / 12%) 14px 16px),
     linear-gradient(145deg, var(--rupi-white), var(--rupi-lavender)) !important;
 }
 
@@ -531,9 +535,9 @@ yt-live-chat-membership-item-renderer::after {
 
   .rupi-chat,
   yt-live-chat-text-message-renderer {
-    width: calc(100% - 50px) !important;
-    max-width: calc(100% - 50px) !important;
-    margin-right: 34px !important;
+    width: calc(100% - 14px) !important;
+    max-width: calc(100% - 14px) !important;
+    margin-right: 6px !important;
   }
 
   .rupi-chat {
