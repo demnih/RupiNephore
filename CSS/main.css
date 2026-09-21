@@ -237,7 +237,8 @@ yt-live-chat-text-message-renderer yt-live-chat-author-chip #author-name {
 
 .rupi-chat__badges,
 yt-live-chat-text-message-renderer #author-badges,
-yt-live-chat-text-message-renderer #chip-badges {
+yt-live-chat-text-message-renderer #chip-badges,
+yt-live-chat-text-message-renderer #chat-badges {
   display: inline-flex !important;
   flex: 0 0 auto;
   align-items: center;
@@ -263,16 +264,53 @@ yt-live-chat-text-message-renderer #chip-badges {
 
 yt-live-chat-text-message-renderer #author-badges yt-live-chat-author-badge-renderer,
 yt-live-chat-text-message-renderer #chip-badges yt-live-chat-author-badge-renderer,
+yt-live-chat-text-message-renderer #chat-badges yt-live-chat-author-badge-renderer,
 yt-live-chat-text-message-renderer #author-badges yt-icon,
 yt-live-chat-text-message-renderer #chip-badges yt-icon,
+yt-live-chat-text-message-renderer #chat-badges yt-icon,
 yt-live-chat-text-message-renderer #author-badges img,
-yt-live-chat-text-message-renderer #chip-badges img {
+yt-live-chat-text-message-renderer #chip-badges img,
+yt-live-chat-text-message-renderer #chat-badges img {
   display: inline-flex !important;
   width: 16px !important;
   height: 16px !important;
   margin: 0 !important;
   color: var(--label-text) !important;
   vertical-align: middle;
+}
+
+/* Fallback untuk versi YouTube yang menaruh badges di luar author-chip. */
+yt-live-chat-text-message-renderer #author-badges,
+yt-live-chat-text-message-renderer #chip-badges,
+yt-live-chat-text-message-renderer #chat-badges {
+  position: absolute !important;
+  z-index: 7;
+  top: -9px;
+  right: 56px;
+  max-width: 112px;
+  min-height: 21px;
+  padding: 2px 7px !important;
+  overflow: hidden;
+  border: 1px solid var(--label-border);
+  border-radius: 999px;
+  background: var(--label-background) !important;
+  color: var(--label-text) !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Jika badge memang berada di author-chip, biarkan mengalir tepat setelah nama. */
+yt-live-chat-text-message-renderer yt-live-chat-author-chip #author-badges,
+yt-live-chat-text-message-renderer yt-live-chat-author-chip #chip-badges,
+yt-live-chat-text-message-renderer yt-live-chat-author-chip #chat-badges {
+  position: static !important;
+  max-width: none;
+  min-height: 0;
+  padding: 0 !important;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent !important;
 }
 
 /* Ranking badge baru YouTube biasanya berada sebelum isi pesan. */
