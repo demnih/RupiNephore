@@ -22,6 +22,15 @@
   --rupi-white: #f8f7ff;
   --rupi-berry: #c83f72;
 
+  /* Palette khusus owner, diambil dari warna dominan pose.png. */
+  --rupi-pose-white: #f0f0ff;
+  --rupi-pose-lavender: #e0e0ff;
+  --rupi-pose-periwinkle: #c0c0f0;
+  --rupi-pose-pink: #ffa0d0;
+  --rupi-pose-rose: #e070b0;
+  --rupi-pose-violet: #504070;
+  --rupi-pose-ink: #302050;
+
   --rupi-font: "Nunito", "Arial Rounded MT Bold", "Segoe UI", sans-serif;
   --rupi-radius: 20px;
   --rupi-border-width: 3px;
@@ -281,23 +290,26 @@ yt-live-chat-text-message-renderer[author-type="moderator"] #content {
 .rupi-chat--rupi,
 yt-live-chat-text-message-renderer[author-type="owner"] {
   --bubble-background:
-    linear-gradient(135deg, rgb(36 34 67 / 84%), rgb(70 59 112 / 82%)),
+    linear-gradient(135deg, rgb(240 240 255 / 88%), rgb(224 224 255 / 84%) 52%, rgb(255 160 208 / 82%)),
     url("../Asset/[ clothes patterns ]/jacket - right side pattern.png") center bottom / 320px auto repeat-x,
-    linear-gradient(135deg, #242243 0%, var(--rupi-navy) 60%, #463b70 100%);
-  --bubble-border: var(--rupi-pink);
-  --bubble-text: var(--rupi-white);
-  --label-background: var(--rupi-pink);
-  --label-text: var(--rupi-white);
-  --label-border: var(--rupi-soft-pink);
+    linear-gradient(135deg, var(--rupi-pose-white), var(--rupi-pose-lavender) 55%, var(--rupi-pose-pink));
+  --bubble-border: var(--rupi-pose-rose);
+  --bubble-text: var(--rupi-pose-ink);
+  --label-background: linear-gradient(135deg, var(--rupi-pose-ink), var(--rupi-pose-violet) 58%, var(--rupi-pose-rose));
+  --label-text: var(--rupi-pose-white);
+  --label-border: var(--rupi-pose-pink);
   --ornament-image: url("../Asset/[ assets ]/tag.png");
   --ornament-width: 58px;
   --ornament-height: 58px;
   --ornament-rotation: 8deg;
+  --rupi-shadow:
+    0 10px 24px rgb(48 32 80 / 22%),
+    inset 0 1px 0 rgb(255 255 255 / 76%);
 }
 
 .rupi-chat--rupi::before,
 yt-live-chat-text-message-renderer[author-type="owner"]::before {
-  color: var(--rupi-soft-pink);
+  color: var(--rupi-pose-violet);
   content: "✚  ♡  ✦";
 }
 
