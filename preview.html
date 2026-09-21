@@ -457,15 +457,31 @@
 
       function createChat(type, data) {
         const card = document.createElement("article");
+        const identity = document.createElement("span");
         const name = document.createElement("span");
+        const badges = document.createElement("span");
+        const badge = document.createElement("span");
         const message = document.createElement("div");
 
+        const badgeLabels = {
+          viewer: "👑 #3",
+          member: "MEMBER",
+          moderator: "MOD",
+          rupi: "OWNER"
+        };
+
         card.className = `rupi-chat rupi-chat--${type}`;
+        identity.className = "rupi-chat__identity";
         name.className = "rupi-chat__name";
+        badges.className = "rupi-chat__badges";
+        badge.className = "rupi-chat__badge";
         message.className = "rupi-chat__message";
         name.textContent = data.name;
+        badge.textContent = badgeLabels[type];
         message.textContent = data.message;
-        card.append(name, message);
+        badges.append(badge);
+        identity.append(name, badges);
+        card.append(identity, message);
 
         return card;
       }

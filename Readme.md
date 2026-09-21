@@ -115,6 +115,7 @@ Superchat dan notifikasi member baru memiliki kompleksitas menengah karena membu
 
 - Bubble harus tetap terbaca pada resolusi streaming umum dan tidak bergantung pada satu ukuran layar saja.
 - Nama pengguna, badge, nominal, dan isi pesan perlu memiliki class atau selector terpisah.
+- Badge membership, moderator, owner, dan ranking YouTube ditampilkan pada baris yang sama dengan username.
 - Pesan panjang harus dapat berpindah baris tanpa keluar dari bubble.
 - Asset dekoratif tidak boleh menutupi nama, nominal, atau pesan.
 - Animasi masuk dan keluar dibuat ringan agar tidak mengganggu performa OBS.

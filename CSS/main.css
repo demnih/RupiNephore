@@ -77,8 +77,7 @@ yt-live-chat-mode-change-message-renderer,
 #menu,
 #inline-action-button-container,
 yt-live-chat-text-message-renderer #timestamp,
-yt-live-chat-text-message-renderer #author-photo,
-yt-live-chat-text-message-renderer #author-badges {
+yt-live-chat-text-message-renderer #author-photo {
   display: none !important;
 }
 
@@ -110,7 +109,7 @@ yt-live-chat-text-message-renderer {
   --ornament-width: 48px;
   --ornament-height: 38px;
   --ornament-rotation: -14deg;
-  --ornament-opacity: 0.16;
+  --ornament-opacity: 0.28;
 
   position: relative;
   display: block;
@@ -183,7 +182,9 @@ yt-live-chat-text-message-renderer::after {
   pointer-events: none;
 }
 
+.rupi-chat__identity,
 .rupi-chat__name,
+yt-live-chat-text-message-renderer yt-live-chat-author-chip,
 yt-live-chat-text-message-renderer #author-name {
   position: absolute !important;
   z-index: 5;
@@ -206,6 +207,90 @@ yt-live-chat-text-message-renderer #author-name {
   letter-spacing: 0.02em;
   text-overflow: ellipsis;
   text-shadow: none !important;
+  white-space: nowrap;
+}
+
+.rupi-chat__identity,
+yt-live-chat-text-message-renderer yt-live-chat-author-chip {
+  gap: 5px;
+}
+
+.rupi-chat__identity .rupi-chat__name,
+yt-live-chat-text-message-renderer yt-live-chat-author-chip #author-name {
+  position: static !important;
+  display: block !important;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: none;
+  min-height: 0;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.rupi-chat__badges,
+yt-live-chat-text-message-renderer #author-badges,
+yt-live-chat-text-message-renderer #chip-badges {
+  display: inline-flex !important;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 3px;
+  margin-left: 1px;
+  color: var(--label-text) !important;
+}
+
+.rupi-chat__badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 17px;
+  padding: 1px 5px;
+  border: 1px solid rgb(255 255 255 / 58%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 34%);
+  color: inherit;
+  font-size: 9px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.03em;
+}
+
+yt-live-chat-text-message-renderer #author-badges yt-live-chat-author-badge-renderer,
+yt-live-chat-text-message-renderer #chip-badges yt-live-chat-author-badge-renderer,
+yt-live-chat-text-message-renderer #author-badges yt-icon,
+yt-live-chat-text-message-renderer #chip-badges yt-icon,
+yt-live-chat-text-message-renderer #author-badges img,
+yt-live-chat-text-message-renderer #chip-badges img {
+  display: inline-flex !important;
+  width: 16px !important;
+  height: 16px !important;
+  margin: 0 !important;
+  color: var(--label-text) !important;
+  vertical-align: middle;
+}
+
+/* Ranking badge baru YouTube biasanya berada sebelum isi pesan. */
+yt-live-chat-text-message-renderer #before-content:not(:empty) {
+  position: absolute !important;
+  z-index: 6;
+  top: -9px;
+  right: 56px;
+  display: inline-flex !important;
+  align-items: center;
+  gap: 3px;
+  max-width: 94px;
+  min-height: 21px;
+  padding: 2px 7px !important;
+  overflow: hidden;
+  border: 1px solid var(--label-border);
+  border-radius: 999px;
+  background: var(--label-background) !important;
+  color: var(--label-text) !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -263,7 +348,7 @@ yt-live-chat-text-message-renderer[author-type="member"] {
   --ornament-width: 43px;
   --ornament-height: 43px;
   --ornament-rotation: 12deg;
-  --ornament-opacity: 0.14;
+  --ornament-opacity: 0.25;
 }
 
 /* 3. Moderator - adaptasi box VIP User */
@@ -282,7 +367,7 @@ yt-live-chat-text-message-renderer[author-type="moderator"] {
   --ornament-width: 52px;
   --ornament-height: 38px;
   --ornament-rotation: -11deg;
-  --ornament-opacity: 0.14;
+  --ornament-opacity: 0.24;
 }
 
 .rupi-chat--moderator,
@@ -307,7 +392,7 @@ yt-live-chat-text-message-renderer[author-type="owner"] {
   --ornament-width: 58px;
   --ornament-height: 58px;
   --ornament-rotation: 8deg;
-  --ornament-opacity: 0.13;
+  --ornament-opacity: 0.23;
   --rupi-shadow:
     0 10px 24px rgb(48 32 80 / 22%),
     inset 0 1px 0 rgb(255 255 255 / 76%);
