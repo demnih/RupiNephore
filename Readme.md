@@ -86,7 +86,7 @@ Jika CSS digunakan melalui layanan berbasis web seperti StreamElements, asset lo
 Repo ini dapat dimuat melalui jsDelivr, sehingga seluruh isi CSS tidak perlu disalin ke OBS. Tambahkan YouTube Live Chat Popout sebagai Browser Source, kemudian masukkan baris berikut pada kolom **Custom CSS**:
 
 ```css
-@import url("https://cdn.jsdelivr.net/gh/demnih/RupiNephore@1c13e2b/CSS/main.css");
+@import url("https://cdn.jsdelivr.net/gh/demnih/RupiNephore@29bd7a9/CSS/main.css");
 ```
 
 Path asset di dalam `main.css` bersifat relatif terhadap file CSS. Ketika stylesheet dimuat dari CDN, browser juga akan mengambil gambar dari repo yang sama secara otomatis.
