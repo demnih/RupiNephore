@@ -104,7 +104,8 @@ yt-live-chat-text-message-renderer {
 
   position: relative;
   display: block;
-  width: auto;
+  width: calc(100% - 58px) !important;
+  max-width: calc(100% - 58px) !important;
   min-width: 0;
   margin: 0 42px var(--rupi-chat-gap) 4px !important;
   overflow: visible;
@@ -493,6 +494,8 @@ yt-live-chat-membership-item-renderer::after {
 
   .rupi-chat,
   yt-live-chat-text-message-renderer {
+    width: calc(100% - 50px) !important;
+    max-width: calc(100% - 50px) !important;
     margin-right: 34px !important;
   }
 
