@@ -225,6 +225,7 @@ yt-live-chat-text-message-renderer yt-live-chat-author-chip #author-name {
   position: static !important;
   display: block !important;
   flex: 1 1 auto;
+  order: 1;
   min-width: 0;
   max-width: none;
   min-height: 0;
@@ -236,6 +237,7 @@ yt-live-chat-text-message-renderer yt-live-chat-author-chip #author-name {
 }
 
 .rupi-chat__badges,
+yt-live-chat-text-message-renderer #prepend-chat-badges,
 yt-live-chat-text-message-renderer #author-badges,
 yt-live-chat-text-message-renderer #chip-badges,
 yt-live-chat-text-message-renderer #chat-badges {
@@ -245,6 +247,27 @@ yt-live-chat-text-message-renderer #chat-badges {
   gap: 3px;
   margin-left: 1px;
   color: var(--label-text) !important;
+  vertical-align: middle !important;
+}
+
+yt-live-chat-text-message-renderer #prepend-chat-badges:empty,
+yt-live-chat-text-message-renderer #author-badges:empty,
+yt-live-chat-text-message-renderer #chip-badges:empty,
+yt-live-chat-text-message-renderer #chat-badges:empty {
+  display: none !important;
+}
+
+/*
+ * YouTube dapat menaruh badge "before chip" sebelum nama di DOM.
+ * Flex order menjaga susunan visual tetap: nama dahulu, lalu badges.
+ */
+yt-live-chat-text-message-renderer yt-live-chat-author-chip #prepend-chat-badges {
+  order: 2;
+}
+
+yt-live-chat-text-message-renderer yt-live-chat-author-chip #author-badges,
+yt-live-chat-text-message-renderer yt-live-chat-author-chip #chat-badges {
+  order: 3;
 }
 
 .rupi-chat__badge {
@@ -262,12 +285,15 @@ yt-live-chat-text-message-renderer #chat-badges {
   letter-spacing: 0.03em;
 }
 
+yt-live-chat-text-message-renderer #prepend-chat-badges yt-live-chat-author-badge-renderer,
 yt-live-chat-text-message-renderer #author-badges yt-live-chat-author-badge-renderer,
 yt-live-chat-text-message-renderer #chip-badges yt-live-chat-author-badge-renderer,
 yt-live-chat-text-message-renderer #chat-badges yt-live-chat-author-badge-renderer,
+yt-live-chat-text-message-renderer #prepend-chat-badges yt-icon,
 yt-live-chat-text-message-renderer #author-badges yt-icon,
 yt-live-chat-text-message-renderer #chip-badges yt-icon,
 yt-live-chat-text-message-renderer #chat-badges yt-icon,
+yt-live-chat-text-message-renderer #prepend-chat-badges img,
 yt-live-chat-text-message-renderer #author-badges img,
 yt-live-chat-text-message-renderer #chip-badges img,
 yt-live-chat-text-message-renderer #chat-badges img {
@@ -279,10 +305,16 @@ yt-live-chat-text-message-renderer #chat-badges img {
   vertical-align: middle;
 }
 
-/* Fallback untuk versi YouTube yang menaruh badges di luar author-chip. */
-yt-live-chat-text-message-renderer #author-badges,
-yt-live-chat-text-message-renderer #chip-badges,
-yt-live-chat-text-message-renderer #chat-badges {
+/* Renderer badge YouTube terbaru memakai #image; versi lama bisa memakai img. */
+yt-live-chat-text-message-renderer yt-live-chat-author-badge-renderer #image {
+  width: 16px !important;
+  height: 16px !important;
+  margin: 0 !important;
+  background-size: contain !important;
+}
+
+/* Fallback untuk layout lama yang menaruh #author-badges langsung di #content. */
+yt-live-chat-text-message-renderer #content > #author-badges {
   position: absolute !important;
   z-index: 7;
   top: -9px;
@@ -300,6 +332,7 @@ yt-live-chat-text-message-renderer #chat-badges {
 }
 
 /* Jika badge memang berada di author-chip, biarkan mengalir tepat setelah nama. */
+yt-live-chat-text-message-renderer yt-live-chat-author-chip #prepend-chat-badges,
 yt-live-chat-text-message-renderer yt-live-chat-author-chip #author-badges,
 yt-live-chat-text-message-renderer yt-live-chat-author-chip #chip-badges,
 yt-live-chat-text-message-renderer yt-live-chat-author-chip #chat-badges {
@@ -311,30 +344,6 @@ yt-live-chat-text-message-renderer yt-live-chat-author-chip #chat-badges {
   border: 0;
   border-radius: 0;
   background: transparent !important;
-}
-
-/* Ranking badge baru YouTube biasanya berada sebelum isi pesan. */
-yt-live-chat-text-message-renderer #before-content:not(:empty) {
-  position: absolute !important;
-  z-index: 6;
-  top: -9px;
-  right: 56px;
-  display: inline-flex !important;
-  align-items: center;
-  gap: 3px;
-  max-width: 94px;
-  min-height: 21px;
-  padding: 2px 7px !important;
-  overflow: hidden;
-  border: 1px solid var(--label-border);
-  border-radius: 999px;
-  background: var(--label-background) !important;
-  color: var(--label-text) !important;
-  font-size: 10px !important;
-  font-weight: 900 !important;
-  line-height: 1 !important;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 /*
@@ -381,7 +390,10 @@ yt-live-chat-text-message-renderer #before-content-buttons:not(:empty) {
 }
 
 yt-live-chat-text-message-renderer #before-content-buttons yt-button-view-model,
-yt-live-chat-text-message-renderer #before-content-buttons button {
+yt-live-chat-text-message-renderer #before-content-buttons button,
+yt-live-chat-text-message-renderer #before-content-buttons > * {
+  display: inline-flex !important;
+  align-items: center;
   min-height: 21px !important;
   margin: 0 !important;
   line-height: 1 !important;
