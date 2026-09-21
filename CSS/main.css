@@ -337,6 +337,66 @@ yt-live-chat-text-message-renderer #before-content:not(:empty) {
   white-space: nowrap;
 }
 
+/*
+ * YouTube menaruh ikon status baru dan ranking di depan message-container.
+ * Keduanya dipindahkan ke baris header agar pesan tidak terdorong ke bawah.
+ */
+yt-live-chat-text-message-renderer #message-prefix-icon-container:not(:empty) {
+  position: absolute !important;
+  z-index: 7;
+  top: -9px;
+  right: 108px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 23px;
+  height: 21px;
+  padding: 2px 4px !important;
+  border: 1px solid var(--label-border);
+  border-radius: 999px;
+  background: var(--label-background) !important;
+  color: var(--label-text) !important;
+  line-height: 1 !important;
+}
+
+yt-live-chat-text-message-renderer #message-prefix-icon-container #message-prefix-icon,
+yt-live-chat-text-message-renderer #message-prefix-icon-container yt-icon {
+  width: 14px !important;
+  height: 14px !important;
+  margin: 0 !important;
+  color: var(--label-text) !important;
+}
+
+yt-live-chat-text-message-renderer #before-content-buttons:not(:empty) {
+  position: absolute !important;
+  z-index: 7;
+  top: -9px;
+  right: 56px;
+  display: inline-flex !important;
+  align-items: center;
+  min-height: 21px;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+yt-live-chat-text-message-renderer #before-content-buttons yt-button-view-model,
+yt-live-chat-text-message-renderer #before-content-buttons button {
+  min-height: 21px !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+}
+
+/* Hindari tabrakan ranking badge dengan ornamen dekoratif kanan. */
+yt-live-chat-text-message-renderer:has(#before-content-buttons:not(:empty))::before {
+  opacity: 0;
+}
+
+yt-live-chat-text-message-renderer #message-container {
+  display: block !important;
+  min-width: 0;
+}
+
 .rupi-chat__message,
 yt-live-chat-text-message-renderer #message {
   position: relative;
