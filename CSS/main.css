@@ -236,9 +236,10 @@ yt-live-chat-text-message-renderer yt-live-chat-author-chip {
   top: -12px;
   left: -7px;
   align-self: start;
-  width: fit-content;
-  max-width: none;
-  overflow: visible;
+  width: max-content !important;
+  min-width: max-content !important;
+  max-width: none !important;
+  overflow: visible !important;
   flex-wrap: nowrap;
   vertical-align: top;
 }
@@ -246,19 +247,36 @@ yt-live-chat-text-message-renderer yt-live-chat-author-chip {
 .rupi-chat__identity .rupi-chat__name,
 yt-live-chat-text-message-renderer yt-live-chat-author-chip #author-name {
   position: static !important;
-  display: block !important;
-  flex: 0 0 auto;
   order: 1;
-  min-width: max-content;
   max-width: none;
   min-height: 0;
   padding: 0 !important;
-  overflow: visible;
   border: 0 !important;
   border-radius: 0;
   background: transparent !important;
   box-shadow: none !important;
-  text-overflow: clip;
+}
+
+.rupi-chat__identity .rupi-chat__name {
+  display: block !important;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Kalahkan batas lebar internal YouTube agar handle tidak berubah menjadi @... */
+yt-live-chat-text-message-renderer yt-live-chat-author-chip #author-name {
+  display: inline-flex !important;
+  flex: 0 0 max-content !important;
+  align-items: center;
+  gap: 3px;
+  width: max-content !important;
+  min-width: max-content !important;
+  max-width: none !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  white-space: nowrap !important;
 }
 
 .rupi-chat__badges,
