@@ -568,8 +568,15 @@
       showAllButton.addEventListener("click", renderGallery);
       showCurrentButton.addEventListener("click", renderCurrent);
 
+      const query = new URLSearchParams(window.location.search);
+      const requestedWidth = Number(query.get("width"));
+
+      if (requestedWidth >= 320 && requestedWidth <= 760) {
+        frameWidthInput.value = String(requestedWidth);
+      }
+
       updateFrame();
-      if (new URLSearchParams(window.location.search).has("all")) {
+      if (query.has("all")) {
         renderGallery();
       } else {
         renderCurrent();

@@ -224,7 +224,7 @@ yt-live-chat-text-message-renderer:not([author-type]),
 yt-live-chat-text-message-renderer[author-type=""] {
   --bubble-background:
     linear-gradient(135deg, rgb(248 247 255 / 91%), rgb(255 255 255 / 88%)),
-    url("../Asset/[ clothes patterns ]/inner - back pattern.png") center bottom / 100% 38px no-repeat,
+    url("../Asset/[ clothes patterns ]/inner - back pattern.png") center bottom / 320px auto repeat-x,
     linear-gradient(135deg, var(--rupi-white) 0%, #ffffff 75%);
   --bubble-border: var(--rupi-soft-pink);
   --bubble-text: var(--rupi-navy);
@@ -240,7 +240,7 @@ yt-live-chat-text-message-renderer[author-type=""] {
 yt-live-chat-text-message-renderer[author-type="member"] {
   --bubble-background:
     linear-gradient(135deg, rgb(248 201 223 / 87%), rgb(236 147 188 / 84%)),
-    url("../Asset/[ clothes patterns ]/shoe - pattern.png") center bottom / 100% 34px no-repeat,
+    url("../Asset/[ clothes patterns ]/shoe - pattern.png") center bottom / 320px auto repeat-x,
     linear-gradient(135deg, #f8c9df 0%, var(--rupi-soft-pink) 55%, #ec93bc 100%);
   --bubble-border: var(--rupi-pink);
   --bubble-text: var(--rupi-navy);
@@ -282,7 +282,7 @@ yt-live-chat-text-message-renderer[author-type="moderator"] #content {
 yt-live-chat-text-message-renderer[author-type="owner"] {
   --bubble-background:
     linear-gradient(135deg, rgb(36 34 67 / 84%), rgb(70 59 112 / 82%)),
-    url("../Asset/[ clothes patterns ]/jacket - right side pattern.png") center bottom / 100% 36px no-repeat,
+    url("../Asset/[ clothes patterns ]/jacket - right side pattern.png") center bottom / 320px auto repeat-x,
     linear-gradient(135deg, #242243 0%, var(--rupi-navy) 60%, #463b70 100%);
   --bubble-border: var(--rupi-pink);
   --bubble-text: var(--rupi-white);
@@ -380,7 +380,7 @@ yt-live-chat-paid-message-renderer {
 yt-live-chat-paid-message-renderer #card {
   background:
     linear-gradient(145deg, rgb(95 86 141 / 87%), rgb(119 112 171 / 84%)),
-    url("../Asset/[ clothes patterns ]/inner - front pattern.png") center bottom / 100% 48px no-repeat,
+    url("../Asset/[ clothes patterns ]/inner - front pattern.png") center bottom / 320px auto repeat-x,
     linear-gradient(145deg, var(--rupi-purple), #7770ab) !important;
 }
 
@@ -430,7 +430,7 @@ yt-live-chat-membership-item-renderer #card {
   border-color: var(--rupi-pink) !important;
   background:
     linear-gradient(145deg, rgb(248 247 255 / 90%), rgb(231 233 255 / 88%)),
-    url("../Asset/[ clothes patterns ]/belt - purple pattern.png") center bottom / 100% 36px no-repeat,
+    url("../Asset/[ clothes patterns ]/belt - purple pattern.png") center bottom / 320px auto repeat-x,
     linear-gradient(145deg, var(--rupi-white), var(--rupi-lavender)) !important;
 }
 
