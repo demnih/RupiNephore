@@ -86,12 +86,12 @@ Jika CSS digunakan melalui layanan berbasis web seperti StreamElements, asset lo
 Repo ini dapat dimuat melalui jsDelivr, sehingga seluruh isi CSS tidak perlu disalin ke OBS. Tambahkan YouTube Live Chat Popout sebagai Browser Source, kemudian masukkan baris berikut pada kolom **Custom CSS**:
 
 ```css
-@import url("https://cdn.jsdelivr.net/gh/demnih/RupiNephore@main/CSS/main.css");
+@import url("https://cdn.jsdelivr.net/gh/demnih/RupiNephore@010d347/CSS/main.css");
 ```
 
 Path asset di dalam `main.css` bersifat relatif terhadap file CSS. Ketika stylesheet dimuat dari CDN, browser juga akan mengambil gambar dari repo yang sama secara otomatis.
 
-Jika perubahan terbaru belum langsung tampil, lakukan **Refresh cache of current page** pada Browser Source. CDN dapat menyimpan versi sebelumnya untuk sementara; untuk pengujian versi yang benar-benar tetap, `main` dapat diganti dengan hash commit tertentu.
+URL di atas menggunakan hash commit agar versi yang tampil di OBS selalu sesuai dengan versi yang sudah diuji. Setelah desain CSS diperbarui, hash pada URL juga perlu diganti dengan hash commit terbaru. Penggunaan branch `main` lebih praktis, tetapi CDN dapat menyimpan versi sebelumnya untuk sementara.
 
 ### Preview lokal interaktif
 
