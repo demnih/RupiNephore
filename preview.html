@@ -569,7 +569,11 @@
       showCurrentButton.addEventListener("click", renderCurrent);
 
       updateFrame();
-      renderCurrent();
+      if (new URLSearchParams(window.location.search).has("all")) {
+        renderGallery();
+      } else {
+        renderCurrent();
+      }
     </script>
   </body>
 </html>
