@@ -21,6 +21,8 @@
   --rupi-lavender: #e7e9ff;
   --rupi-white: #f8f7ff;
   --rupi-berry: #c83f72;
+  --rupi-link: #2563eb;
+  --rupi-link-hover: #1d4ed8;
 
   /* Palette khusus owner, diambil dari warna dominan pose.png. */
   --rupi-pose-white: #f0f0ff;
@@ -478,6 +480,36 @@ yt-live-chat-text-message-renderer #message {
   white-space: normal !important;
 }
 
+.rupi-chat__message a,
+yt-live-chat-text-message-renderer #message a,
+.rupi-event__body a,
+yt-live-chat-paid-message-renderer #content a,
+yt-live-chat-membership-item-renderer #content a,
+.rupi-chat__message a:visited,
+yt-live-chat-text-message-renderer #message a:visited,
+.rupi-event__body a:visited,
+yt-live-chat-paid-message-renderer #content a:visited,
+yt-live-chat-membership-item-renderer #content a:visited {
+  color: var(--rupi-link) !important;
+  overflow-wrap: anywhere;
+  text-decoration: underline !important;
+  text-decoration-thickness: 1.5px !important;
+  text-underline-offset: 2px;
+}
+
+.rupi-chat__message a:hover,
+.rupi-chat__message a:focus-visible,
+yt-live-chat-text-message-renderer #message a:hover,
+yt-live-chat-text-message-renderer #message a:focus-visible,
+.rupi-event__body a:hover,
+.rupi-event__body a:focus-visible,
+yt-live-chat-paid-message-renderer #content a:hover,
+yt-live-chat-paid-message-renderer #content a:focus-visible,
+yt-live-chat-membership-item-renderer #content a:hover,
+yt-live-chat-membership-item-renderer #content a:focus-visible {
+  color: var(--rupi-link-hover) !important;
+}
+
 yt-live-chat-text-message-renderer #message img,
 yt-live-chat-text-message-renderer #message yt-img-shadow {
   max-height: 28px !important;
@@ -532,6 +564,8 @@ yt-live-chat-text-message-renderer[author-type="moderator"] {
   --label-background: var(--rupi-lavender);
   --label-text: var(--rupi-navy);
   --label-border: var(--rupi-navy);
+  --rupi-link: #7dd3fc;
+  --rupi-link-hover: #bae6fd;
   --ornament-image: url("../Asset/[ assets ]/purple pill.png");
   --ornament-width: 52px;
   --ornament-height: 38px;
@@ -642,6 +676,8 @@ yt-live-chat-membership-item-renderer #author-photo {
 
 .rupi-event--superchat,
 yt-live-chat-paid-message-renderer {
+  --rupi-link: #7dd3fc;
+  --rupi-link-hover: #bae6fd;
   --yt-live-chat-paid-message-primary-color: var(--rupi-soft-pink) !important;
   --yt-live-chat-paid-message-secondary-color: var(--rupi-purple) !important;
   --yt-live-chat-paid-message-header-color: var(--rupi-navy) !important;
