@@ -2,15 +2,18 @@
 const MAX_MESSAGES = 12;
 const EXIT_DURATION_MS = 360;
 const ASSET_BASE = "https://cdn.jsdelivr.net/gh/demnih/RupiNephore@01d1594/Asset/%5B%20assets%20%5D";
-const ORNAMENTS = [
-    { name: "Blue pill", shape: "pill", url: `${ASSET_BASE}/blue%20pill.png` },
-    { name: "Pink pill", shape: "pill", url: `${ASSET_BASE}/pink%20pill.png` },
-    { name: "Purple pill", shape: "pill", url: `${ASSET_BASE}/purple%20pill.png` },
-    { name: "Blue tablet", shape: "tablet", url: `${ASSET_BASE}/blue%20tablet.png` },
-    { name: "Pink tablet", shape: "tablet", url: `${ASSET_BASE}/pink%20tablet.png` },
-    { name: "Purple tablet", shape: "tablet", url: `${ASSET_BASE}/purple%20tablet.png` }
+const PILL_ORNAMENTS = [
+    { color: "Blue", url: `${ASSET_BASE}/blue%20pill.png` },
+    { color: "Pink", url: `${ASSET_BASE}/pink%20pill.png` },
+    { color: "Purple", url: `${ASSET_BASE}/purple%20pill.png` }
 ];
-let previousOrnamentIndex = -1;
+const TABLET_ORNAMENTS = [
+    { color: "Blue", url: `${ASSET_BASE}/blue%20tablet.png` },
+    { color: "Pink", url: `${ASSET_BASE}/pink%20tablet.png` },
+    { color: "Purple", url: `${ASSET_BASE}/purple%20tablet.png` }
+];
+let previousPillIndex = -1;
+let previousTabletIndex = -1;
 const messagesRoot = document.querySelector("#rupi-messages");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 if (!messagesRoot) {
@@ -31,24 +34,38 @@ function getVariant(item) {
         return "member";
     return "viewer";
 }
-function createRandomOrnament() {
-    let index = Math.floor(Math.random() * ORNAMENTS.length);
-    if (ORNAMENTS.length > 1 && index === previousOrnamentIndex) {
-        index = (index + 1 + Math.floor(Math.random() * (ORNAMENTS.length - 1))) % ORNAMENTS.length;
+function randomIndexExcept(length, previousIndex) {
+    let index = Math.floor(Math.random() * length);
+    if (length > 1 && index === previousIndex) {
+        index = (index + 1 + Math.floor(Math.random() * (length - 1))) % length;
     }
-    previousOrnamentIndex = index;
-    const option = ORNAMENTS[index];
-    const rotation = Math.round(Math.random() * 24 - 12);
+    return index;
+}
+function createOrnament(option, shape) {
+    const rotation = shape === "pill"
+        ? Math.round(Math.random() * 20 - 14)
+        : Math.round(Math.random() * 24 - 12);
     const ornament = document.createElement("img");
-    ornament.className = `rupi-ornament rupi-ornament--${option.shape}`;
+    ornament.className = `rupi-ornament rupi-ornament--${shape}`;
     ornament.src = option.url;
     ornament.alt = "";
-    ornament.title = option.name;
+    ornament.title = `${option.color} ${shape}`;
     ornament.loading = "eager";
+    ornament.dataset.placement = shape === "pill" ? "top-left" : "bottom-right";
     ornament.dataset.rotation = String(rotation);
     ornament.style.setProperty("--ornament-rotation", `${rotation}deg`);
     ornament.setAttribute("aria-hidden", "true");
     return ornament;
+}
+function createRandomOrnaments() {
+    const pillIndex = randomIndexExcept(PILL_ORNAMENTS.length, previousPillIndex);
+    const tabletIndex = randomIndexExcept(TABLET_ORNAMENTS.length, previousTabletIndex);
+    previousPillIndex = pillIndex;
+    previousTabletIndex = tabletIndex;
+    return [
+        createOrnament(PILL_ORNAMENTS[pillIndex], "pill"),
+        createOrnament(TABLET_ORNAMENTS[tabletIndex], "tablet")
+    ];
 }
 function appendLinkedText(parent, value) {
     const urlPattern = /https?:\/\/[^\s<]+/gi;
@@ -155,7 +172,7 @@ function createNormalMessage(item, variant) {
     const message = document.createElement("div");
     message.className = "rupi-message";
     appendMessageParts(message, item.message);
-    article.append(message, createRandomOrnament());
+    article.append(message, ...createRandomOrnaments());
     return article;
 }
 function membershipTag(details) {
@@ -252,38 +269,45 @@ function startOrnamentIdleAnimation(ornament) {
         iterations: Infinity
     });
 }
-function animateOrnamentEntrance(element) {
-    const ornament = element.querySelector(".rupi-ornament");
-    if (!ornament || prefersReducedMotion.matches)
+function animateOrnamentsEntrance(element) {
+    const ornaments = element.querySelectorAll(".rupi-ornament");
+    if (ornaments.length === 0 || prefersReducedMotion.matches)
         return;
-    const rotation = Number(ornament.dataset.rotation || 0);
-    const animation = ornament.animate([
-        {
-            opacity: 0,
-            transform: `translate(10px, 12px) rotate(${rotation - 35}deg) scale(.2)`
-        },
-        {
-            opacity: 1,
-            transform: `translate(-2px, -3px) rotate(${rotation + 12}deg) scale(1.18)`,
-            offset: 0.72
-        },
-        {
-            opacity: 1,
-            transform: `translate(0, 0) rotate(${rotation}deg) scale(1)`
-        }
-    ], {
-        delay: 120,
-        duration: 560,
-        easing: "cubic-bezier(.2, .9, .25, 1.25)",
-        fill: "both"
+    ornaments.forEach((ornament, index) => {
+        const rotation = Number(ornament.dataset.rotation || 0);
+        const isTopLeft = ornament.dataset.placement === "top-left";
+        const startX = isTopLeft ? -12 : 10;
+        const startY = isTopLeft ? -10 : 12;
+        const startRotation = isTopLeft ? rotation + 35 : rotation - 35;
+        const overshootRotation = isTopLeft ? rotation - 11 : rotation + 12;
+        const animation = ornament.animate([
+            {
+                opacity: 0,
+                transform: `translate(${startX}px, ${startY}px) rotate(${startRotation}deg) scale(.2)`
+            },
+            {
+                opacity: 1,
+                transform: `translate(${isTopLeft ? 2 : -2}px, -3px) rotate(${overshootRotation}deg) scale(1.18)`,
+                offset: 0.72
+            },
+            {
+                opacity: 1,
+                transform: `translate(0, 0) rotate(${rotation}deg) scale(1)`
+            }
+        ], {
+            delay: 90 + index * 90,
+            duration: 560,
+            easing: "cubic-bezier(.2, .9, .25, 1.25)",
+            fill: "both"
+        });
+        animation.finished
+            .then(() => {
+            if (element.dataset.exiting !== "true") {
+                startOrnamentIdleAnimation(ornament);
+            }
+        })
+            .catch(() => undefined);
     });
-    animation.finished
-        .then(() => {
-        if (element.dataset.exiting !== "true") {
-            startOrnamentIdleAnimation(ornament);
-        }
-    })
-        .catch(() => undefined);
 }
 function animateEntrance(element, variant) {
     if (prefersReducedMotion.matches)
@@ -304,7 +328,7 @@ function animateEntrance(element, variant) {
         easing: "cubic-bezier(.2, .85, .25, 1.15)",
         fill: "both"
     });
-    animateOrnamentEntrance(element);
+    animateOrnamentsEntrance(element);
 }
 function removeWithAnimation(element) {
     if (element.dataset.exiting === "true")
@@ -315,19 +339,23 @@ function removeWithAnimation(element) {
         return;
     }
     element.getAnimations().forEach((animation) => animation.cancel());
-    const ornament = element.querySelector(".rupi-ornament");
-    if (ornament) {
+    const ornaments = element.querySelectorAll(".rupi-ornament");
+    ornaments.forEach((ornament) => {
         ornament.getAnimations().forEach((animation) => animation.cancel());
         const rotation = Number(ornament.dataset.rotation || 0);
+        const isTopLeft = ornament.dataset.placement === "top-left";
         ornament.animate([
             { opacity: 1, transform: `translate(0, 0) rotate(${rotation}deg) scale(1)` },
-            { opacity: 0, transform: `translate(14px, -12px) rotate(${rotation + 42}deg) scale(.25)` }
+            {
+                opacity: 0,
+                transform: `translate(${isTopLeft ? -14 : 14}px, -12px) rotate(${rotation + (isTopLeft ? -42 : 42)}deg) scale(.25)`
+            }
         ], {
             duration: EXIT_DURATION_MS,
             easing: "cubic-bezier(.55, 0, 1, .45)",
             fill: "forwards"
         });
-    }
+    });
     const marginBottom = getComputedStyle(element).marginBottom;
     const animation = element.animate([
         {

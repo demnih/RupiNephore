@@ -55,12 +55,12 @@ Nilai ini dapat disesuaikan pada `.rupi-chat` dan `.rupi-event` di `overlay.css`
 
 ## Ornament pil dan tablet
 
-Setiap chat biasa mendapat satu ornament acak dari enam aset berikut:
+Setiap chat biasa selalu mendapat dua ornament:
 
-- Blue, pink, dan purple pill
-- Blue, pink, dan purple tablet
+- Pil di sudut kiri atas, dengan warna blue, pink, atau purple
+- Tablet di sudut kanan bawah, dengan warna blue, pink, atau purple
 
-Pil/tablet ditempatkan sebagai elemen gambar di sudut kanan bawah bubble, bukan lagi background transparan. Pilihan yang sama tidak digunakan dua kali berturut-turut.
+Warna keduanya dipilih secara independen, sehingga pil dan tablet dalam satu bubble dapat memiliki warna yang sama atau berbeda. Warna pada posisi yang sama tidak digunakan dua kali berturut-turut. Pil diletakkan di belakang label username agar tidak menutupi nama.
 
 ## Animasi
 
@@ -70,7 +70,7 @@ Animasi masuk dan keluar dijalankan melalui Web Animations API di TypeScript. Ma
 const MAX_MESSAGES = 12;
 ```
 
-Pesan tertua dianimasikan keluar ketika batas tersebut dilewati. Ornament memiliki animasi pop saat muncul, gerakan mengambang saat diam, serta spin kecil saat keluar. Preferensi sistem `prefers-reduced-motion` juga dihormati.
+Pesan tertua dianimasikan keluar ketika batas tersebut dilewati. Kedua ornament memiliki animasi pop bergantian saat muncul, gerakan mengambang saat diam, serta spin ke arah berbeda saat keluar. Preferensi sistem `prefers-reduced-motion` juga dihormati.
 
 ## Aset
 

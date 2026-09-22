@@ -109,9 +109,6 @@ body {
 
 .rupi-ornament {
   position: absolute;
-  z-index: 7;
-  right: -22px;
-  bottom: -15px;
   display: block;
   object-fit: contain;
   opacity: 1;
@@ -123,11 +120,15 @@ body {
 }
 
 .rupi-ornament--pill {
+  z-index: 4;
+  top: -20px;
+  left: -16px;
   width: 56px;
   height: 42px;
 }
 
 .rupi-ornament--tablet {
+  z-index: 7;
   right: -19px;
   bottom: -18px;
   width: 48px;
