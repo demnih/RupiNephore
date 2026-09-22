@@ -1,0 +1,527 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap");
+
+:root {
+  --rupi-navy: #292750;
+  --rupi-purple: #5f568d;
+  --rupi-periwinkle: #a9ade2;
+  --rupi-pink: #e965a4;
+  --rupi-soft-pink: #f5b5d2;
+  --rupi-lavender: #e7e9ff;
+  --rupi-white: #f8f7ff;
+  --rupi-berry: #c83f72;
+  --rupi-link: #2563eb;
+  --rupi-link-hover: #1d4ed8;
+
+  --rupi-pose-white: #f0f0ff;
+  --rupi-pose-lavender: #e0e0ff;
+  --rupi-pose-periwinkle: #c0c0f0;
+  --rupi-pose-pink: #ffa0d0;
+  --rupi-pose-rose: #e070b0;
+  --rupi-pose-violet: #504070;
+  --rupi-pose-ink: #302050;
+
+  --rupi-font: "Nunito", "Arial Rounded MT Bold", "Segoe UI", sans-serif;
+  --rupi-radius: 20px;
+  --rupi-chat-gap: 14px;
+  --rupi-shadow: 0 8px 20px rgb(41 39 80 / 18%);
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: transparent !important;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--rupi-font);
+}
+
+.rupi-overlay {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.rupi-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+  padding: 18px 14px 30px;
+}
+
+.rupi-item {
+  --bubble-background: linear-gradient(135deg, var(--rupi-white), #ffffff);
+  --bubble-border: var(--rupi-soft-pink);
+  --bubble-text: var(--rupi-navy);
+  --label-background: var(--rupi-white);
+  --label-text: var(--rupi-berry);
+  --label-border: var(--rupi-soft-pink);
+  --ornament-image: url("https://cdn.jsdelivr.net/gh/demnih/RupiNephore@01d1594/Asset/%5B%20assets%20%5D/blue%20pill.png");
+  --ornament-width: 48px;
+  --ornament-height: 38px;
+  --ornament-rotation: -14deg;
+  --ornament-opacity: 0.28;
+
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(100% - 16px);
+  max-width: calc(100% - 16px);
+  min-width: 0;
+  margin: 0 8px var(--rupi-chat-gap) 4px;
+  overflow: visible;
+  color: var(--bubble-text);
+  font-family: var(--rupi-font);
+  transform-origin: left center;
+}
+
+.rupi-chat {
+  min-height: 58px;
+  padding: 24px 54px 14px 18px;
+  border: 3px solid var(--bubble-border);
+  border-radius: 9px var(--rupi-radius) var(--rupi-radius) var(--rupi-radius);
+  background: var(--bubble-background);
+  box-shadow: var(--rupi-shadow);
+}
+
+.rupi-chat::before {
+  content: "✦  ·  ✦";
+  position: absolute;
+  z-index: 3;
+  top: 1px;
+  right: 17px;
+  color: var(--label-border);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.rupi-chat::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  right: 11px;
+  bottom: 7px;
+  width: var(--ornament-width);
+  height: var(--ornament-height);
+  background-image: var(--ornament-image);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: var(--ornament-opacity);
+  filter: saturate(0.78) contrast(0.9);
+  transform: rotate(var(--ornament-rotation));
+}
+
+.rupi-author-row {
+  position: absolute;
+  z-index: 5;
+  top: -12px;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  max-width: calc(100% - 40px);
+  white-space: nowrap;
+}
+
+.rupi-author-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: max-content;
+  max-width: none;
+  min-height: 25px;
+  padding: 3px 13px 4px;
+  overflow: visible;
+  border: 2px solid var(--label-border);
+  border-radius: 999px;
+  background: var(--label-background);
+  color: var(--label-text);
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+}
+
+.rupi-author-name {
+  flex: 0 0 max-content;
+  width: max-content;
+  min-width: max-content;
+}
+
+.rupi-author-badges {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 3px;
+  color: inherit;
+}
+
+.rupi-author-badge-image {
+  display: block;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.rupi-author-badge-label,
+.rupi-verified,
+.rupi-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 17px;
+  padding: 1px 5px;
+  border: 1px solid rgb(255 255 255 / 58%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 34%);
+  color: inherit;
+  font-size: 9px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.rupi-verified {
+  width: 17px;
+  padding: 0;
+}
+
+.rupi-rank {
+  min-height: 21px;
+  padding: 2px 7px;
+  border-color: var(--label-border);
+  background: var(--label-background);
+  color: var(--label-text);
+  font-size: 10px;
+}
+
+.rupi-message {
+  position: relative;
+  z-index: 4;
+  display: block;
+  overflow-wrap: anywhere;
+  color: var(--bubble-text);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: normal;
+}
+
+.rupi-message a,
+.rupi-event-body a,
+.rupi-message a:visited,
+.rupi-event-body a:visited {
+  color: var(--rupi-link);
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 2px;
+  pointer-events: auto;
+}
+
+.rupi-message a:hover,
+.rupi-message a:focus-visible,
+.rupi-event-body a:hover,
+.rupi-event-body a:focus-visible {
+  color: var(--rupi-link-hover);
+}
+
+.rupi-inline-emoji,
+.rupi-inline-image {
+  display: inline-block;
+  width: auto;
+  max-width: 110px;
+  height: 28px;
+  margin: 0 2px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.rupi-inline-image {
+  max-height: 48px;
+}
+
+/* 1. Viewer dan subscriber biasa */
+.rupi-chat--viewer {
+  --bubble-background:
+    radial-gradient(circle at 8% 22%, rgb(245 181 210 / 20%) 0 3px, transparent 4px),
+    radial-gradient(circle at 92% 76%, rgb(169 173 226 / 18%) 0 4px, transparent 5px),
+    linear-gradient(135deg, var(--rupi-white) 0%, #ffffff 75%);
+}
+
+/* 2. YouTube Member */
+.rupi-chat--member {
+  --bubble-background:
+    repeating-linear-gradient(135deg, transparent 0 13px, rgb(255 255 255 / 12%) 13px 16px),
+    linear-gradient(135deg, #f8c9df 0%, var(--rupi-soft-pink) 55%, #ec93bc 100%);
+  --bubble-border: var(--rupi-pink);
+  --label-border: var(--rupi-pink);
+  --ornament-image: url("https://cdn.jsdelivr.net/gh/demnih/RupiNephore@01d1594/Asset/%5B%20assets%20%5D/pink%20tablet.png");
+  --ornament-width: 43px;
+  --ornament-height: 43px;
+  --ornament-rotation: 12deg;
+  --ornament-opacity: 0.25;
+}
+
+/* 3. Moderator */
+.rupi-chat--moderator {
+  --bubble-background:
+    radial-gradient(circle at 88% 20%, rgb(255 255 255 / 30%) 0 2px, transparent 3px),
+    linear-gradient(135deg, var(--rupi-purple) 0%, #746da9 100%);
+  --bubble-border: var(--rupi-periwinkle);
+  --bubble-text: var(--rupi-white);
+  --label-background: var(--rupi-lavender);
+  --label-text: var(--rupi-navy);
+  --label-border: var(--rupi-navy);
+  --rupi-link: #7dd3fc;
+  --rupi-link-hover: #bae6fd;
+  --ornament-image: url("https://cdn.jsdelivr.net/gh/demnih/RupiNephore@01d1594/Asset/%5B%20assets%20%5D/purple%20pill.png");
+  --ornament-width: 52px;
+  --ornament-height: 38px;
+  --ornament-rotation: -11deg;
+  --ornament-opacity: 0.24;
+}
+
+.rupi-chat--moderator {
+  background-size: 18px 18px, auto;
+}
+
+/* 4. Rupi / channel owner */
+.rupi-chat--owner {
+  --bubble-background:
+    linear-gradient(45deg, transparent 46%, rgb(80 64 112 / 8%) 47% 53%, transparent 54%) 0 0 / 28px 28px,
+    linear-gradient(-45deg, transparent 46%, rgb(224 112 176 / 7%) 47% 53%, transparent 54%) 0 0 / 28px 28px,
+    linear-gradient(135deg, var(--rupi-pose-white), var(--rupi-pose-lavender) 55%, var(--rupi-pose-pink));
+  --bubble-border: var(--rupi-pose-rose);
+  --bubble-text: var(--rupi-pose-ink);
+  --label-background: linear-gradient(135deg, var(--rupi-pose-ink), var(--rupi-pose-violet) 58%, var(--rupi-pose-rose));
+  --label-text: var(--rupi-pose-white);
+  --label-border: var(--rupi-pose-pink);
+  --ornament-image: url("https://cdn.jsdelivr.net/gh/demnih/RupiNephore@01d1594/Asset/%5B%20assets%20%5D/tag.png");
+  --ornament-width: 58px;
+  --ornament-height: 58px;
+  --ornament-rotation: 8deg;
+  --ornament-opacity: 0.23;
+  --rupi-shadow:
+    0 10px 24px rgb(48 32 80 / 22%),
+    inset 0 1px 0 rgb(255 255 255 / 76%);
+}
+
+.rupi-chat--owner::before {
+  color: var(--rupi-pose-rose);
+}
+
+/* 5-6. Superchat dan notifikasi membership */
+.rupi-event {
+  width: calc(100% - 72px);
+  margin: 8px 54px 22px 18px;
+  overflow: visible;
+  border: 3px solid var(--rupi-periwinkle);
+  border-radius: 25px 11px 25px 11px;
+  background: linear-gradient(145deg, var(--rupi-purple), #7770ab);
+  box-shadow: 0 12px 26px rgb(41 39 80 / 24%);
+}
+
+.rupi-event-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 50px;
+  padding: 10px 58px 10px 18px;
+  border-radius: 21px 8px 15px 8px;
+  background: linear-gradient(135deg, var(--rupi-soft-pink), #f9d9e8);
+  color: var(--rupi-navy);
+}
+
+.rupi-event-identity {
+  min-width: 0;
+}
+
+.rupi-event-name-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rupi-event-name {
+  display: block;
+  overflow: hidden;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rupi-event-meta {
+  display: block;
+  margin-top: 2px;
+  color: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  opacity: 0.76;
+}
+
+.rupi-event-amount,
+.rupi-event-tag {
+  flex: 0 0 auto;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--rupi-white);
+  color: var(--rupi-berry);
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.rupi-event-body {
+  position: relative;
+  min-height: 48px;
+  padding: 14px 20px 18px;
+  overflow-wrap: anywhere;
+  color: var(--rupi-white);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.rupi-event--superchat {
+  --rupi-link: #7dd3fc;
+  --rupi-link-hover: #bae6fd;
+  background:
+    radial-gradient(circle at 3px 3px, rgb(240 240 255 / 10%) 0 2px, transparent 2.5px) 0 0 / 21px 21px,
+    linear-gradient(145deg, var(--rupi-purple), #7770ab);
+}
+
+.rupi-event--superchat .rupi-event-header {
+  padding-left: 76px;
+}
+
+.rupi-event--superchat::before {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  top: -39px;
+  left: -28px;
+  width: 102px;
+  height: 102px;
+  background: url("https://cdn.jsdelivr.net/gh/demnih/RupiNephore@01d1594/Asset/%5B%20illust%20png%20%5D/devil%20car.png") center / contain no-repeat;
+  filter: drop-shadow(0 5px 6px rgb(41 39 80 / 18%));
+  transform: rotate(-5deg);
+}
+
+.rupi-event--superchat::after {
+  content: "✦  ♡  ✦";
+  position: absolute;
+  z-index: 5;
+  right: 18px;
+  bottom: 8px;
+  color: var(--rupi-soft-pink);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.rupi-super-sticker {
+  display: block;
+  width: auto;
+  max-width: 92px;
+  max-height: 92px;
+  margin-top: 8px;
+  object-fit: contain;
+}
+
+.rupi-event--membership {
+  margin-top: 24px;
+  border-color: var(--rupi-pink);
+  background:
+    repeating-linear-gradient(135deg, transparent 0 14px, rgb(169 173 226 / 12%) 14px 16px),
+    linear-gradient(145deg, var(--rupi-white), var(--rupi-lavender));
+}
+
+.rupi-event--membership .rupi-event-header {
+  padding-left: 82px;
+  background: linear-gradient(135deg, var(--rupi-navy), #4b4375);
+  color: var(--rupi-white);
+}
+
+.rupi-event--membership .rupi-event-body {
+  color: var(--rupi-purple);
+}
+
+.rupi-event--membership::before {
+  content: "";
+  position: absolute;
+  z-index: 6;
+  top: -34px;
+  left: -30px;
+  width: 104px;
+  height: 104px;
+  background: url("https://cdn.jsdelivr.net/gh/demnih/RupiNephore@01d1594/Asset/%5B%20illust%20png%20%5D/angel%20car.png") center / contain no-repeat;
+  filter: drop-shadow(0 6px 8px rgb(41 39 80 / 16%));
+}
+
+.rupi-event--membership .rupi-event-tag {
+  position: absolute;
+  top: -13px;
+  right: 16px;
+  border: 2px solid var(--rupi-pink);
+  background: linear-gradient(135deg, var(--rupi-pink), var(--rupi-berry));
+  color: var(--rupi-white);
+}
+
+.rupi-item--ticker {
+  filter: drop-shadow(0 0 8px rgb(233 101 164 / 28%));
+}
+
+@media (max-width: 520px) {
+  :root {
+    --rupi-chat-gap: 11px;
+  }
+
+  .rupi-messages {
+    padding-inline: 8px;
+  }
+
+  .rupi-item {
+    width: calc(100% - 14px);
+    max-width: calc(100% - 14px);
+    margin-right: 6px;
+  }
+
+  .rupi-chat {
+    padding-right: 46px;
+  }
+
+  .rupi-message,
+  .rupi-event-body {
+    font-size: 14px;
+  }
+
+  .rupi-event {
+    width: calc(100% - 50px);
+    margin-right: 38px;
+    margin-left: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rupi-item {
+    animation: none !important;
+  }
+}
