@@ -1,6 +1,16 @@
 "use strict";
 const MAX_MESSAGES = 12;
-const EXIT_DURATION_MS = 280;
+const EXIT_DURATION_MS = 360;
+const ASSET_BASE = "https://cdn.jsdelivr.net/gh/demnih/RupiNephore@01d1594/Asset/%5B%20assets%20%5D";
+const ORNAMENTS = [
+    { name: "Blue pill", shape: "pill", url: `${ASSET_BASE}/blue%20pill.png` },
+    { name: "Pink pill", shape: "pill", url: `${ASSET_BASE}/pink%20pill.png` },
+    { name: "Purple pill", shape: "pill", url: `${ASSET_BASE}/purple%20pill.png` },
+    { name: "Blue tablet", shape: "tablet", url: `${ASSET_BASE}/blue%20tablet.png` },
+    { name: "Pink tablet", shape: "tablet", url: `${ASSET_BASE}/pink%20tablet.png` },
+    { name: "Purple tablet", shape: "tablet", url: `${ASSET_BASE}/purple%20tablet.png` }
+];
+let previousOrnamentIndex = -1;
 const messagesRoot = document.querySelector("#rupi-messages");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 if (!messagesRoot) {
@@ -20,6 +30,25 @@ function getVariant(item) {
     if (item.isMembership)
         return "member";
     return "viewer";
+}
+function createRandomOrnament() {
+    let index = Math.floor(Math.random() * ORNAMENTS.length);
+    if (ORNAMENTS.length > 1 && index === previousOrnamentIndex) {
+        index = (index + 1 + Math.floor(Math.random() * (ORNAMENTS.length - 1))) % ORNAMENTS.length;
+    }
+    previousOrnamentIndex = index;
+    const option = ORNAMENTS[index];
+    const rotation = Math.round(Math.random() * 24 - 12);
+    const ornament = document.createElement("img");
+    ornament.className = `rupi-ornament rupi-ornament--${option.shape}`;
+    ornament.src = option.url;
+    ornament.alt = "";
+    ornament.title = option.name;
+    ornament.loading = "eager";
+    ornament.dataset.rotation = String(rotation);
+    ornament.style.setProperty("--ornament-rotation", `${rotation}deg`);
+    ornament.setAttribute("aria-hidden", "true");
+    return ornament;
 }
 function appendLinkedText(parent, value) {
     const urlPattern = /https?:\/\/[^\s<]+/gi;
@@ -126,7 +155,7 @@ function createNormalMessage(item, variant) {
     const message = document.createElement("div");
     message.className = "rupi-message";
     appendMessageParts(message, item.message);
-    article.append(message);
+    article.append(message, createRandomOrnament());
     return article;
 }
 function membershipTag(details) {
@@ -207,23 +236,75 @@ function createEventMessage(item, variant) {
     article.append(header, body);
     return article;
 }
+function startOrnamentIdleAnimation(ornament) {
+    if (prefersReducedMotion.matches || !ornament.isConnected)
+        return;
+    const rotation = Number(ornament.dataset.rotation || 0);
+    const direction = Math.random() > 0.5 ? 1 : -1;
+    ornament.animate([
+        { transform: `translateY(0) rotate(${rotation}deg) scale(1)` },
+        { transform: `translateY(-4px) rotate(${rotation + 7 * direction}deg) scale(1.06)` },
+        { transform: `translateY(1px) rotate(${rotation - 3 * direction}deg) scale(.98)` },
+        { transform: `translateY(0) rotate(${rotation}deg) scale(1)` }
+    ], {
+        duration: 2400 + Math.round(Math.random() * 900),
+        easing: "ease-in-out",
+        iterations: Infinity
+    });
+}
+function animateOrnamentEntrance(element) {
+    const ornament = element.querySelector(".rupi-ornament");
+    if (!ornament || prefersReducedMotion.matches)
+        return;
+    const rotation = Number(ornament.dataset.rotation || 0);
+    const animation = ornament.animate([
+        {
+            opacity: 0,
+            transform: `translate(10px, 12px) rotate(${rotation - 35}deg) scale(.2)`
+        },
+        {
+            opacity: 1,
+            transform: `translate(-2px, -3px) rotate(${rotation + 12}deg) scale(1.18)`,
+            offset: 0.72
+        },
+        {
+            opacity: 1,
+            transform: `translate(0, 0) rotate(${rotation}deg) scale(1)`
+        }
+    ], {
+        delay: 120,
+        duration: 560,
+        easing: "cubic-bezier(.2, .9, .25, 1.25)",
+        fill: "both"
+    });
+    animation.finished
+        .then(() => {
+        if (element.dataset.exiting !== "true") {
+            startOrnamentIdleAnimation(ornament);
+        }
+    })
+        .catch(() => undefined);
+}
 function animateEntrance(element, variant) {
     if (prefersReducedMotion.matches)
         return;
     const keyframes = variant === "superchat" || variant === "membership"
         ? [
-            { opacity: 0, transform: "translateY(24px) scale(.94)" },
+            { opacity: 0, transform: "translateY(30px) rotate(-1deg) scale(.9)" },
+            { opacity: 1, transform: "translateY(-4px) rotate(.35deg) scale(1.025)", offset: 0.72 },
             { opacity: 1, transform: "translateY(0) scale(1)" }
         ]
         : [
-            { opacity: 0, transform: "translateX(-30px) scale(.97)" },
+            { opacity: 0, transform: "translateX(-42px) rotate(-1.5deg) scale(.88)" },
+            { opacity: 1, transform: "translateX(6px) rotate(.45deg) scale(1.025)", offset: 0.7 },
             { opacity: 1, transform: "translateX(0) scale(1)" }
         ];
     element.animate(keyframes, {
-        duration: variant === "superchat" || variant === "membership" ? 520 : 420,
-        easing: "cubic-bezier(.22, 1, .36, 1)",
+        duration: variant === "superchat" || variant === "membership" ? 620 : 520,
+        easing: "cubic-bezier(.2, .85, .25, 1.15)",
         fill: "both"
     });
+    animateOrnamentEntrance(element);
 }
 function removeWithAnimation(element) {
     if (element.dataset.exiting === "true")
@@ -233,9 +314,39 @@ function removeWithAnimation(element) {
         element.remove();
         return;
     }
+    element.getAnimations().forEach((animation) => animation.cancel());
+    const ornament = element.querySelector(".rupi-ornament");
+    if (ornament) {
+        ornament.getAnimations().forEach((animation) => animation.cancel());
+        const rotation = Number(ornament.dataset.rotation || 0);
+        ornament.animate([
+            { opacity: 1, transform: `translate(0, 0) rotate(${rotation}deg) scale(1)` },
+            { opacity: 0, transform: `translate(14px, -12px) rotate(${rotation + 42}deg) scale(.25)` }
+        ], {
+            duration: EXIT_DURATION_MS,
+            easing: "cubic-bezier(.55, 0, 1, .45)",
+            fill: "forwards"
+        });
+    }
+    const marginBottom = getComputedStyle(element).marginBottom;
     const animation = element.animate([
-        { opacity: 1, transform: "translateX(0) scale(1)", maxHeight: `${element.offsetHeight}px` },
-        { opacity: 0, transform: "translateX(-24px) scale(.97)", maxHeight: "0px" }
+        {
+            opacity: 1,
+            transform: "translateX(0) rotate(0) scale(1)",
+            maxHeight: `${element.offsetHeight}px`,
+            marginBottom
+        },
+        {
+            opacity: 1,
+            transform: "translateX(8px) rotate(.5deg) scale(1.015)",
+            offset: 0.28
+        },
+        {
+            opacity: 0,
+            transform: "translateX(-48px) rotate(-2deg) scale(.9)",
+            maxHeight: "0px",
+            marginBottom: "0px"
+        }
     ], {
         duration: EXIT_DURATION_MS,
         easing: "ease-in",

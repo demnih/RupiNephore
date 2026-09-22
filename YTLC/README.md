@@ -43,6 +43,25 @@ Rekomendasi ukuran awal Browser Source:
 
 Badge, verified state, ranking, emoji, sticker, dan membership details hanya ditampilkan jika data tersebut benar-benar dikirim oleh YTLC.
 
+## Lebar bubble dinamis
+
+Bubble memakai `fit-content`, sehingga lebarnya mengikuti isi pesan dengan batas aman:
+
+- Chat biasa: minimum `270px`, maksimum `720px`
+- Superchat/membership: minimum `390px`, maksimum `720px`
+- Pada viewport kecil, batas tersebut otomatis menyesuaikan lebar layar
+
+Nilai ini dapat disesuaikan pada `.rupi-chat` dan `.rupi-event` di `overlay.css`.
+
+## Ornament pil dan tablet
+
+Setiap chat biasa mendapat satu ornament acak dari enam aset berikut:
+
+- Blue, pink, dan purple pill
+- Blue, pink, dan purple tablet
+
+Pil/tablet ditempatkan sebagai elemen gambar di sudut kanan bawah bubble, bukan lagi background transparan. Pilihan yang sama tidak digunakan dua kali berturut-turut.
+
 ## Animasi
 
 Animasi masuk dan keluar dijalankan melalui Web Animations API di TypeScript. Maksimal pesan yang dipertahankan dapat diubah melalui konstanta berikut pada bagian atas `overlay.ts`:
@@ -51,7 +70,7 @@ Animasi masuk dan keluar dijalankan melalui Web Animations API di TypeScript. Ma
 const MAX_MESSAGES = 12;
 ```
 
-Pesan tertua dianimasikan keluar ketika batas tersebut dilewati. Preferensi sistem `prefers-reduced-motion` juga dihormati.
+Pesan tertua dianimasikan keluar ketika batas tersebut dilewati. Ornament memiliki animasi pop saat muncul, gerakan mengambang saat diam, serta spin kecil saat keluar. Preferensi sistem `prefers-reduced-motion` juga dihormati.
 
 ## Aset
 

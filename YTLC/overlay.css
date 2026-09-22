@@ -56,10 +56,11 @@ body {
 .rupi-messages {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 4px;
   width: 100%;
   min-width: 0;
-  padding: 18px 14px 30px;
+  padding: 18px 32px 30px 14px;
 }
 
 .rupi-item {
@@ -69,18 +70,13 @@ body {
   --label-background: var(--rupi-white);
   --label-text: var(--rupi-berry);
   --label-border: var(--rupi-soft-pink);
-  --ornament-image: url("https://cdn.jsdelivr.net/gh/demnih/RupiNephore@01d1594/Asset/%5B%20assets%20%5D/blue%20pill.png");
-  --ornament-width: 48px;
-  --ornament-height: 38px;
-  --ornament-rotation: -14deg;
-  --ornament-opacity: 0.28;
 
   position: relative;
   flex: 0 0 auto;
-  width: calc(100% - 16px);
-  max-width: calc(100% - 16px);
+  width: fit-content;
+  max-width: min(720px, calc(100% - 30px));
   min-width: 0;
-  margin: 0 8px var(--rupi-chat-gap) 4px;
+  margin: 0 26px var(--rupi-chat-gap) 4px;
   overflow: visible;
   color: var(--bubble-text);
   font-family: var(--rupi-font);
@@ -88,8 +84,11 @@ body {
 }
 
 .rupi-chat {
+  width: fit-content;
+  min-width: min(270px, calc(100vw - 62px));
+  max-width: min(720px, calc(100vw - 62px));
   min-height: 58px;
-  padding: 24px 54px 14px 18px;
+  padding: 24px 24px 14px 18px;
   border: 3px solid var(--bubble-border);
   border-radius: 9px var(--rupi-radius) var(--rupi-radius) var(--rupi-radius);
   background: var(--bubble-background);
@@ -108,21 +107,31 @@ body {
   letter-spacing: 2px;
 }
 
-.rupi-chat::after {
-  content: "";
+.rupi-ornament {
   position: absolute;
-  z-index: 3;
-  right: 11px;
-  bottom: 7px;
-  width: var(--ornament-width);
-  height: var(--ornament-height);
-  background-image: var(--ornament-image);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  opacity: var(--ornament-opacity);
-  filter: saturate(0.78) contrast(0.9);
+  z-index: 7;
+  right: -22px;
+  bottom: -15px;
+  display: block;
+  object-fit: contain;
+  opacity: 1;
+  filter: drop-shadow(0 5px 7px rgb(41 39 80 / 22%));
   transform: rotate(var(--ornament-rotation));
+  transform-origin: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.rupi-ornament--pill {
+  width: 56px;
+  height: 42px;
+}
+
+.rupi-ornament--tablet {
+  right: -19px;
+  bottom: -18px;
+  width: 48px;
+  height: 48px;
 }
 
 .rupi-author-row {
@@ -269,11 +278,6 @@ body {
     linear-gradient(135deg, #f8c9df 0%, var(--rupi-soft-pink) 55%, #ec93bc 100%);
   --bubble-border: var(--rupi-pink);
   --label-border: var(--rupi-pink);
-  --ornament-image: url("https://cdn.jsdelivr.net/gh/demnih/RupiNephore@01d1594/Asset/%5B%20assets%20%5D/pink%20tablet.png");
-  --ornament-width: 43px;
-  --ornament-height: 43px;
-  --ornament-rotation: 12deg;
-  --ornament-opacity: 0.25;
 }
 
 /* 3. Moderator */
@@ -288,11 +292,6 @@ body {
   --label-border: var(--rupi-navy);
   --rupi-link: #7dd3fc;
   --rupi-link-hover: #bae6fd;
-  --ornament-image: url("https://cdn.jsdelivr.net/gh/demnih/RupiNephore@01d1594/Asset/%5B%20assets%20%5D/purple%20pill.png");
-  --ornament-width: 52px;
-  --ornament-height: 38px;
-  --ornament-rotation: -11deg;
-  --ornament-opacity: 0.24;
 }
 
 .rupi-chat--moderator {
@@ -310,11 +309,6 @@ body {
   --label-background: linear-gradient(135deg, var(--rupi-pose-ink), var(--rupi-pose-violet) 58%, var(--rupi-pose-rose));
   --label-text: var(--rupi-pose-white);
   --label-border: var(--rupi-pose-pink);
-  --ornament-image: url("https://cdn.jsdelivr.net/gh/demnih/RupiNephore@01d1594/Asset/%5B%20assets%20%5D/tag.png");
-  --ornament-width: 58px;
-  --ornament-height: 58px;
-  --ornament-rotation: 8deg;
-  --ornament-opacity: 0.23;
   --rupi-shadow:
     0 10px 24px rgb(48 32 80 / 22%),
     inset 0 1px 0 rgb(255 255 255 / 76%);
@@ -326,7 +320,9 @@ body {
 
 /* 5-6. Superchat dan notifikasi membership */
 .rupi-event {
-  width: calc(100% - 72px);
+  width: fit-content;
+  min-width: min(390px, calc(100vw - 90px));
+  max-width: min(720px, calc(100vw - 90px));
   margin: 8px 54px 22px 18px;
   overflow: visible;
   border: 3px solid var(--rupi-periwinkle);
@@ -495,17 +491,13 @@ body {
   }
 
   .rupi-messages {
-    padding-inline: 8px;
+    padding-right: 26px;
+    padding-left: 8px;
   }
 
   .rupi-item {
-    width: calc(100% - 14px);
-    max-width: calc(100% - 14px);
-    margin-right: 6px;
-  }
-
-  .rupi-chat {
-    padding-right: 46px;
+    max-width: calc(100vw - 46px);
+    margin-right: 22px;
   }
 
   .rupi-message,
@@ -514,7 +506,8 @@ body {
   }
 
   .rupi-event {
-    width: calc(100% - 50px);
+    min-width: min(320px, calc(100vw - 74px));
+    max-width: calc(100vw - 74px);
     margin-right: 38px;
     margin-left: 12px;
   }
